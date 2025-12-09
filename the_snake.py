@@ -36,10 +36,10 @@ SNAKE_COLOR = (0, 255, 0)  # змейка
 # Скорость (FPS)
 SPEED = 10
 
-# Инициализация pygame (должна быть ДО создания screen и clock)
+# Инициализация pygame
 pygame.init()
 
-# Глобальные переменные, которые ожидают тесты
+# Глобальные переменные
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 
@@ -137,8 +137,6 @@ class Snake(GameObject):
         противоположно текущему.
         """
         if self.next_direction:
-            # Проверяем, что next_direction не является
-            # противоположностью текущего
             if self.next_direction != (-self.direction[0], -self.direction[1]):
                 self.direction = self.next_direction
             self.next_direction = None
@@ -176,13 +174,12 @@ class Snake(GameObject):
             tail_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(surface, BOARD_BACKGROUND_COLOR, tail_rect)
 
-        # Рисуем тело
+        # Отрисовка тела
         for pos in self.positions:
             rect = pygame.Rect(pos, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(surface, self.body_color, rect)
             pygame.draw.rect(surface, BORDER_COLOR, rect, 1)
 
-        # Отрисовка головы чуть ярче (опционально)
         head_rect = pygame.Rect(
             self.get_head_position(), (GRID_SIZE, GRID_SIZE)
         )
@@ -229,10 +226,8 @@ def main() -> None:
         snake.update_direction()
         snake.move()
 
-        # Поедание яблока: если голова совпала с яблоком
         if snake.get_head_position() == apple.position:
             snake.length += 1
-            # чтобы яблоко не появилось внутри змейки, передаём занятые позиции
             apple.randomize_position(occupied=snake.positions)
 
         screen.fill(BOARD_BACKGROUND_COLOR)
