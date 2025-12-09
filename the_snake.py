@@ -10,11 +10,10 @@
 
 import random
 import sys
+from typing import List, Optional, Tuple
 
 import pygame
 from pygame.locals import KEYDOWN, K_DOWN, K_LEFT, K_RIGHT, K_UP, QUIT
-
-from typing import List, Optional, Tuple
 
 # Константы для размеров поля и сетки
 SCREEN_WIDTH = 640
