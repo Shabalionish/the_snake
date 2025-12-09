@@ -15,35 +15,30 @@ from typing import List, Optional, Tuple
 import pygame
 from pygame.locals import KEYDOWN, K_DOWN, K_LEFT, K_RIGHT, K_UP, QUIT
 
-# Константы для размеров поля и сетки:
-SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
+SCREEN_WIDTH = 640
+SCREEN_HEIGHT = 480
 GRID_SIZE = 20
 GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
 GRID_HEIGHT = SCREEN_HEIGHT // GRID_SIZE
 
-# Направления движения:
 UP = (0, -1)
 DOWN = (0, 1)
 LEFT = (-1, 0)
 RIGHT = (1, 0)
 
-# Цвета:
 BOARD_BACKGROUND_COLOR = (0, 0, 0)
 BORDER_COLOR = (93, 216, 228)
 APPLE_COLOR = (255, 0, 0)
 SNAKE_COLOR = (0, 255, 0)
 
-# Скорость (FPS)
 SPEED = 10
 
-# Инициализация pygame
 pygame.init()
 
-# Глобальные переменные
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 
-pygame.display.set_caption('Изгиб Питона')
+pygame.display.set_caption("Изгиб Питона")
 
 
 class GameObject:
@@ -68,7 +63,7 @@ class GameObject:
         self.body_color = body_color
 
     def draw(self, surface: pygame.Surface) -> None:
-        """Абстрактный метод отрисовки. Переопределяется в дочерних классах."""
+        """Абстрактный метод отрисовки. Должен быть переопределён."""
         raise NotImplementedError
 
 
@@ -89,8 +84,8 @@ class Apple(GameObject):
         Parameters
         ----------
         occupied : Optional[list[tuple[int, int]]]
-            Список занятых позиций (например, сегменты змейки) — чтобы
-            яблоко не появлялось внутри неё.
+            Список занятых позиций (например, сегменты змейки) — чтобы яблоко
+            не появлялось внутри неё.
         """
         if occupied is None:
             occupied = []
@@ -139,12 +134,14 @@ class Snake(GameObject):
         противоположно текущему.
         """
         if self.next_direction:
-            if self.next_direction != (-self.direction[0], -self.direction[1]):
+            opposite = (-self.direction[0], -self.direction[1])
+            if self.next_direction != opposite:
                 self.direction = self.next_direction
             self.next_direction = None
 
     def move(self) -> None:
-        """Перемещает змейку на одну клетку в текущем направлении.
+        """
+        Перемещает змейку на одну клетку в текущем направлении.
 
         Реализован проход сквозь стены (wrap-around).
         Если голова попадает в один из сегментов (самопересечение) — сброс.
@@ -177,9 +174,7 @@ class Snake(GameObject):
             pygame.draw.rect(surface, self.body_color, rect)
             pygame.draw.rect(surface, BORDER_COLOR, rect, 1)
 
-        head_rect = pygame.Rect(
-            self.get_head_position(), (GRID_SIZE, GRID_SIZE)
-        )
+        head_rect = pygame.Rect(self.get_head_position(), (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(surface, (0, 255, 0), head_rect)
 
     def reset(self) -> None:
@@ -202,7 +197,7 @@ def handle_keys(snake_obj: Snake) -> None:
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
-        elif event.type == KEYDOWN:
+        if event.type == KEYDOWN:
             if event.key == K_UP:
                 snake_obj.next_direction = UP
             elif event.key == K_DOWN:
@@ -236,5 +231,5 @@ def main() -> None:
         clock.tick(SPEED)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
