@@ -115,11 +115,12 @@ class Snake(GameObject):
 
     def __init__(self) -> None:
         """Инициализирует змейку в центре поля."""
+        super().__init__(body_color=SNAKE_COLOR)
         center = (
             SCREEN_WIDTH // 2 // GRID_SIZE * GRID_SIZE,
             SCREEN_HEIGHT // 2 // GRID_SIZE * GRID_SIZE,
         )
-        super().__init__(position=center, body_color=SNAKE_COLOR)
+        self.position = center
         self.length: int = 1
         self.positions: List[Tuple[int, int]] = [center]
         self.direction: Tuple[int, int] = RIGHT
@@ -131,7 +132,9 @@ class Snake(GameObject):
         return self.positions[0]
 
     def update_direction(self) -> None:
-        """Применяет накопленное следующее направление, если оно допустимо.
+        """
+        Применяет накопленное следующее направление, если оно допустимо.
+
 
         Запрещаем разворот на 180 градусов: новое направление не может быть
         противоположно текущему.
@@ -191,6 +194,7 @@ class Snake(GameObject):
             SCREEN_WIDTH // 2 // GRID_SIZE * GRID_SIZE,
             SCREEN_HEIGHT // 2 // GRID_SIZE * GRID_SIZE,
         )
+        self.position = center
         self.length = 1
         self.positions = [center]
         self.direction = random.choice((UP, DOWN, LEFT, RIGHT))
