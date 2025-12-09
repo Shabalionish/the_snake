@@ -9,7 +9,7 @@
 """
 
 # --- стандартная библиотека ---
-from random import choice, randint
+import random
 import sys
 from typing import List, Optional, Tuple
 
