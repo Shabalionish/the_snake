@@ -9,7 +9,7 @@
 """
 
 # --- стандартная библиотека ---
-import random
+from random import choice, randint
 import sys
 from typing import List, Optional, Tuple
 
@@ -17,8 +17,8 @@ from typing import List, Optional, Tuple
 import pygame
 from pygame.locals import KEYDOWN, K_DOWN, K_LEFT, K_RIGHT, K_UP, QUIT
 
-SCREEN_WIDTH = 640
-SCREEN_HEIGHT = 480
+# Константы для размеров поля и сетки
+SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
 GRID_SIZE = 20
 GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
 GRID_HEIGHT = SCREEN_HEIGHT // GRID_SIZE
