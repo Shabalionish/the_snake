@@ -1,3 +1,4 @@
+Дашулькич, [09.12.2025 23:00]
 """Изгиб Питона — классическая игра «Змейка» на pygame.
 
 Задания:
@@ -49,7 +50,7 @@ pygame.display.set_caption("Изгиб Питона")
 class GameObject:
     """Базовый класс для всех игровых объектов."""
 
-    def __init__(
+    def init(
         self,
         position: Tuple[int, int] = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2),
         body_color: Optional[Tuple[int, int, int]] = None,
@@ -75,9 +76,9 @@ class GameObject:
 class Apple(GameObject):
     """Яблоко, которое должна съесть змейка."""
 
-    def __init__(self) -> None:
+    def init(self) -> None:
         """Создаёт яблоко красного цвета в случайной позиции."""
-        super().__init__(body_color=APPLE_COLOR)
+        super().init(body_color=APPLE_COLOR)
         self.randomize_position()
 
     def randomize_position(
@@ -113,9 +114,9 @@ class Apple(GameObject):
 class Snake(GameObject):
     """Класс, описывающий змейку и её поведение."""
 
-    def __init__(self) -> None:
+    def init(self) -> None:
         """Инициализирует змейку в центре поля."""
-        super().__init__(body_color=SNAKE_COLOR)
+        super().init(body_color=SNAKE_COLOR)
         center = (
             SCREEN_WIDTH // 2 // GRID_SIZE * GRID_SIZE,
             SCREEN_HEIGHT // 2 // GRID_SIZE * GRID_SIZE,
@@ -135,8 +136,8 @@ class Snake(GameObject):
         """
         Применяет накопленное следующее направление, если оно допустимо.
 
-
-        Запрещаем разворот на 180 градусов: новое направление не может быть
+Дашулькич, [09.12.2025 23:00]
+Запрещаем разворот на 180 градусов: новое направление не может быть
         противоположно текущему.
         """
         if self.next_direction:
@@ -242,5 +243,5 @@ def main() -> None:
         clock.tick(SPEED)
 
 
-if __name__ == "__main__":
+if name == "main":
     main()
