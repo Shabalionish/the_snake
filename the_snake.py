@@ -1,3 +1,13 @@
+"""Изгиб Питона — классическая игра «Змейка» на pygame.
+
+Задания:
+- ООП (GameObject -> Apple, Snake)
+- проход сквозь стены
+- рост при поедании яблока
+- сброс при столкновении с собой
+- докстринги, PEP 8
+"""
+
 import random
 import sys
 from typing import List, Optional, Tuple
@@ -33,13 +43,13 @@ pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 
-pygame.display.set_caption("Изгиб Питона")
+pygame.display.set_caption('Изгиб Питона')
 
 
 class GameObject:
     """Базовый класс для всех игровых объектов."""
 
-    def init(
+    def __init__(
         self,
         position: Tuple[int, int] = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2),
         body_color: Optional[Tuple[int, int, int]] = None,
@@ -65,9 +75,9 @@ class GameObject:
 class Apple(GameObject):
     """Яблоко, которое должна съесть змейка."""
 
-    def init(self) -> None:
+    def __init__(self) -> None:
         """Создаёт яблоко красного цвета в случайной позиции."""
-        super().init(body_color=APPLE_COLOR)
+        super().__init__(body_color=APPLE_COLOR)
         self.randomize_position()
 
     def randomize_position(
@@ -103,9 +113,9 @@ class Apple(GameObject):
 class Snake(GameObject):
     """Класс, описывающий змейку и её поведение."""
 
-    def init(self) -> None:
+    def __init__(self) -> None:
         """Инициализирует змейку в центре поля."""
-        super().init(body_color=SNAKE_COLOR)
+        super().__init__(body_color=SNAKE_COLOR)
         center = (
             SCREEN_WIDTH // 2 // GRID_SIZE * GRID_SIZE,
             SCREEN_HEIGHT // 2 // GRID_SIZE * GRID_SIZE,
@@ -125,8 +135,7 @@ class Snake(GameObject):
         """
         Применяет накопленное следующее направление, если оно допустимо.
 
-Дашулькич, [09.12.2025 23:00]
-Запрещаем разворот на 180 градусов: новое направление не может быть
+        Запрещаем разворот на 180 градусов: новое направление не может быть
         противоположно текущему.
         """
         if self.next_direction:
@@ -232,5 +241,5 @@ def main() -> None:
         clock.tick(SPEED)
 
 
-if name == "main":
+if __name__ == '__main__':
     main()
