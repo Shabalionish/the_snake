@@ -28,10 +28,10 @@ LEFT = (-1, 0)
 RIGHT = (1, 0)
 
 # Цвета:
-BOARD_BACKGROUND_COLOR = (0, 0, 0)  # фон поля
-BORDER_COLOR = (93, 216, 228)  # цвет границы ячейки
-APPLE_COLOR = (255, 0, 0)  # яблоко
-SNAKE_COLOR = (0, 255, 0)  # змейка
+BOARD_BACKGROUND_COLOR = (0, 0, 0)
+BORDER_COLOR = (93, 216, 228)
+APPLE_COLOR = (255, 0, 0)
+SNAKE_COLOR = (0, 255, 0)
 
 # Скорость (FPS)
 SPEED = 10
@@ -155,15 +155,12 @@ class Snake(GameObject):
         new_y = (cur_y + dy * GRID_SIZE) % SCREEN_HEIGHT
         new_head = (new_x, new_y)
 
-        # Если столкновение с собственным телом (кроме ближайших сегментов),
-        # то считаем это проигрышем — сбрасываем змейку.
         if new_head in self.positions[2:]:
             self.reset()
             return
 
         self.positions.insert(0, new_head)
 
-        # если длина не увеличилась — убираем хвост
         if len(self.positions) > self.length:
             self.last = self.positions.pop()
         else:
@@ -171,12 +168,10 @@ class Snake(GameObject):
 
     def draw(self, surface: pygame.Surface) -> None:
         """Отрисовывает все сегменты змейки и затирает старый хвост."""
-        # Стираем последний сегмент, закрасив его фоном
         if self.last:
             tail_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(surface, BOARD_BACKGROUND_COLOR, tail_rect)
 
-        # Отрисовка тела
         for pos in self.positions:
             rect = pygame.Rect(pos, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(surface, self.body_color, rect)
