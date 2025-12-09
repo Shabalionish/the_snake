@@ -8,10 +8,12 @@
 - докстринги, PEP 8
 """
 
+# --- стандартная библиотека ---
 import random
 import sys
 from typing import List, Optional, Tuple
 
+# --- сторонние библиотеки ---
 import pygame
 from pygame.locals import KEYDOWN, K_DOWN, K_LEFT, K_RIGHT, K_UP, QUIT
 
